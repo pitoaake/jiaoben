@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>域名黑名单检查</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>域名黑名单检查</h1>
+            <a href="../index.html" class="back-button">返回主页</a>
+        </header>
+
+        <main>
+            <div class="check-form">
+                <div class="input-group">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" onclick="switchTab('single')">单个检查</button>
+                        <button class="tab-button" onclick="switchTab('batch')">批量检查</button>
+                    </div>
+                    
+                    <div id="singleInput" class="input-content active">
+                        <input type="text" id="domainInput" placeholder="请输入要检查的域名" class="domain-input">
+                        <button onclick="checkDomain()" class="check-button">开始检查</button>
+                    </div>
+
+                    <div id="batchInput" class="input-content">
+                        <textarea id="batchDomainInput" placeholder="请输入要检查的域名列表，每行一个域名" class="batch-input"></textarea>
+                        <button onclick="checkBatchDomains()" class="check-button">批量检查</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="singleResults" class="results-container">
+                <div class="result-card" id="surblResult">
+                    <h3>SURBL 黑名单检查</h3>
+                    <div class="status">等待检查...</div>
+                </div>
+
+                <div class="result-card" id="spamhausResult">
+                    <h3>Spamhaus 黑名单检查</h3>
+                    <div class="status">等待检查...</div>
+                </div>
+
+                <div class="result-card" id="mxtoolboxResult">
+                    <h3>MXToolbox 黑名单检查</h3>
+                    <div class="status">等待检查...</div>
+                </div>
+            </div>
+
+            <div id="batchResults" class="batch-results-container" style="display: none;">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>域名</th>
+                            <th>SURBL</th>
+                            <th>Spamhaus</th>
+                            <th>MXToolbox</th>
+                        </tr>
+                    </thead>
+                    <tbody id="batchResultsBody">
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 域名工具箱</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

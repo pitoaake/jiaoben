@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>域名状态监控</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>域名状态监控</h1>
+            <a href="../index.html" class="back-button">返回主页</a>
+        </header>
+
+        <main>
+            <div class="monitor-form">
+                <div class="tab-buttons">
+                    <button class="tab-button active" onclick="switchTab('realtime')">实时监控</button>
+                    <button class="tab-button" onclick="switchTab('batch')">批量监控</button>
+                </div>
+
+                <!-- 实时监控输入区域 -->
+                <div id="realtimeInput" class="input-content active">
+                    <div class="input-group">
+                        <input type="text" id="domainInput" placeholder="请输入要监控的域名" class="domain-input">
+                        <div class="monitor-interval">
+                            <label>监控间隔：</label>
+                            <select id="intervalSelect">
+                                <option value="300">5分钟</option>
+                                <option value="600">10分钟</option>
+                                <option value="1800">30分钟</option>
+                                <option value="3600">1小时</option>
+                            </select>
+                        </div>
+                        <button onclick="startMonitoring()" class="monitor-button">开始监控</button>
+                    </div>
+                </div>
+
+                <!-- 批量监控输入区域 -->
+                <div id="batchInput" class="input-content">
+                    <textarea id="batchDomainInput" placeholder="请输入要监控的域名列表，每行一个域名" class="batch-input"></textarea>
+                    <div class="monitor-interval">
+                        <label>监控间隔：</label>
+                        <select id="batchIntervalSelect">
+                            <option value="300">5分钟</option>
+                            <option value="600">10分钟</option>
+                            <option value="1800">30分钟</option>
+                            <option value="3600">1小时</option>
+                        </select>
+                    </div>
+                    <button onclick="startBatchMonitoring()" class="monitor-button">开始批量监控</button>
+                </div>
+            </div>
+
+            <!-- 实时监控结果显示 -->
+            <div id="realtimeResults" class="monitor-results">
+                <div class="status-cards">
+                    <div class="status-card" id="googleSafe">
+                        <h3>Google Safe Browsing</h3>
+                        <div class="status">等待检查</div>
+                    </div>
+                    <div class="status-card" id="surbl">
+                        <h3>SURBL 黑名单</h3>
+                        <div class="status">等待检查</div>
+                    </div>
+                    <div class="status-card" id="spamhaus">
+                        <h3>Spamhaus 黑名单</h3>
+                        <div class="status">等待检查</div>
+                    </div>
+                    <div class="status-card" id="accessibility">
+                        <h3>网站可访问性</h3>
+                        <div class="status">等待检查</div>
+                    </div>
+                    <div class="status-card" id="dns">
+                        <h3>DNS 记录</h3>
+                        <div class="status">等待检查</div>
+                    </div>
+                </div>
+                <div class="monitor-history">
+                    <h3>监控历史</h3>
+                    <div class="history-list" id="monitorHistory"></div>
+                </div>
+            </div>
+
+            <!-- 批量监控结果显示 -->
+            <div id="batchResults" class="batch-monitor-results" style="display: none;">
+                <table id="monitorTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%">域名</th>
+                            <th style="width: 15%">Google Safe</th>
+                            <th style="width: 15%">SURBL</th>
+                            <th style="width: 15%">Spamhaus</th>
+                            <th style="width: 15%">可访问性</th>
+                            <th style="width: 10%">DNS</th>
+                            <th style="width: 10%">最后检查</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 域名工具箱</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
