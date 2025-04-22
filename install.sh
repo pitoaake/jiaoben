@@ -260,7 +260,7 @@ services:
     ports:
       - "25:25"                # SMTP标准端口
       - "465:465"              # SMTPS加密端口
-      - "880:80"              # Web管理界面[3](@ref)
+      - "80:80"              # Web管理界面[3](@ref)
       - "8443:443"             # HTTPS访问端口
       - "995:995"
       - "993:993"
@@ -337,7 +337,7 @@ fetch_and_process_json() {
     local target_ip="$2"
     local json_data="$3"
     local parse_mode="$4"
-    local api_url="http://${target_ip}:880/api/setup"
+    local api_url="http://${target_ip}:80/api/setup"
 
     echo -e "\n\033[36m$title\033[0m"
     # 发送请求并处理响应
@@ -439,7 +439,7 @@ fetch_and_process_json() {
  
 echo -e "\n\033[36m检测PMail服务是否正常...\033[0m"
 
-ping_pmail_service "http://$PMAIL_IP:880/"
+ping_pmail_service "http://$PMAIL_IP:80/"
 
 
 
