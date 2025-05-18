@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # 权限校验（需root权限）
 if [[ $EUID -ne 0 ]]; then
     echo -e "\033[31m错误：必须使用root权限运行此脚本\033[0m" >&2
@@ -261,7 +259,7 @@ services:
       - "25:25"                # SMTP标准端口
       - "465:465"              # SMTPS加密端口
       - "80:80"              # Web管理界面[3](@ref)
-      - "8443:443"             # HTTPS访问端口
+      - "443:443"             # HTTPS访问端口
       - "995:995"
       - "993:993"
     restart: unless-stopped    # 异常退出自动重启[7](@ref)
@@ -270,7 +268,7 @@ echo " PMail配置完成"
 
 echo -e "\n\033[33m停止并删除PMail服务...\033[0m"
 # docker system prune -af
-docker compose down
+docker-compose down || docker compose down
 
 docker ps -aq | xargs -r docker rm -f
 docker ps -a
@@ -279,7 +277,7 @@ netstat -anpto | grep 25
 
 echo -e "\n\033[36m安装并启动PMail服务...\033[0m"
 # 启动服务（增加错误检测）
-if docker compose up -d; then
+if docker-compose up -d || docker compose up -d; then
     echo -e "\033[33mPMail启动成功！\033[0m"
 else
     echo -e "\033[31mPMail启动失败，请检查日志\033[0m" >&2
@@ -337,7 +335,7 @@ fetch_and_process_json() {
     local target_ip="$2"
     local json_data="$3"
     local parse_mode="$4"
-    local api_url="http://${target_ip}:80/api/setup"
+    local api_url="http://${target_ip}/api/setup"
 
     echo -e "\n\033[36m$title\033[0m"
     # 发送请求并处理响应
@@ -439,7 +437,7 @@ fetch_and_process_json() {
  
 echo -e "\n\033[36m检测PMail服务是否正常...\033[0m"
 
-ping_pmail_service "http://$PMAIL_IP:80/"
+ping_pmail_service "http://$PMAIL_IP/"
 
 
 
